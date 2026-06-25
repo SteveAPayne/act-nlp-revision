@@ -1,29 +1,55 @@
 interface LevelSelectorProps {
   onSelectLevel: (level: string) => void;
+  onBack: () => void;
 }
 
-export default function LevelSelector({ onSelectLevel }: LevelSelectorProps) {
+export default function LevelSelector({
+  onSelectLevel,
+  onBack,
+}: LevelSelectorProps) {
   const levels = ["Practitioner", "Master Practitioner", "Trainer"];
 
   return (
-    <div className="flex flex-col gap-4">
-      <h1 className="text-3xl font-bold text-center text-white">
-        ACT Exam Prep
-      </h1>
+    <div className="min-h-screen bg-gradient-to-br from-slate-900 via-blue-950 to-indigo-950 p-4">
+      <button
+        onClick={onBack}
+        className="mt-8 ml-4 mb-6 text-white text-base font-semibold"
+      >
+        ← Back
+      </button>
 
-      <p className="text-center text-white text-xl opacity-80">
-        Learn. Test. Pass.
-      </p>
+      <div className="flex flex-col gap-4 max-w-xl mx-auto pt-16">
+        <h1 className="text-3xl font-bold text-center text-slate-100">
+          Select Level
+        </h1>
 
-      {levels.map((level) => (
-        <button
-          key={level}
-          onClick={() => onSelectLevel(level)}
-          className="bg-[#1F4F82] text-white p-6 rounded-3xl text-xl font-medium hover:bg-[#163B61]"
-        >
-          {level}
-        </button>
-      ))}
+        <p className="text-center text-slate-300 text-lg">
+          Select your study level.
+        </p>
+
+        <div className="w-24 h-[2px] bg-indigo-400 mx-auto"></div>
+
+        {levels.map((level) => (
+          <button
+            key={level}
+            onClick={() => onSelectLevel(level)}
+            className="bg-white/15 backdrop-blur-xl border border-white/30 rounded-3xl p-5 text-white hover:bg-white/20 transition-all hover:scale-[1.02] shadow-2xl text-left"
+          >
+            <div className="text-xl font-bold mb-2">{level}</div>
+
+            <div className="text-slate-300 text-sm">
+              {level === "Practitioner" &&
+                "Build strong foundations in NLP principles and techniques."}
+
+              {level === "Master Practitioner" &&
+                "Develop advanced NLP skills and deeper behavioural understanding."}
+
+              {level === "Trainer" &&
+                "Prepare to teach, demonstrate and certify NLP effectively."}
+            </div>
+          </button>
+        ))}
+      </div>
     </div>
   );
 }

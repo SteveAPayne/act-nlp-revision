@@ -63,12 +63,7 @@ export default function StudyCard({
   }, [question.id]);
   return (
     <div className="w-full">
-      <div
-        className="rounded-3xl p-8 min-h-[520px] shadow-lg"
-        style={{
-          backgroundColor: "#F3F0FF",
-        }}
-      >
+      <div className="rounded-3xl p-8 min-h-[520px] shadow-2xl bg-[#F4F1EA] border border-slate-200">
         <div className="flex items-center justify-between mb-10">
           <div className="flex items-center gap-3">
             <span className="text-2xl">🏛️</span>
@@ -133,14 +128,14 @@ export default function StudyCard({
               </div>
             )}
 
-            <div className="text-sm uppercase tracking-[0.2em] text-indigo-600 font-semibold mb-4">
+            <div className="text-sm uppercase tracking-[0.2em] text-indigo-600 font-bold mb-4">
               {question.topic}
             </div>
 
             {showReviewScreen && (
               <>
-                <div className="text-sm uppercase tracking-[0.2em] text-indigo-600 font-semibold mb-4">
-                  {showReviewScreen ? "–Question Review–" : "Question"}
+                <div className="text-sm text-slate-500 font-medium mb-4">
+                  Question Review
                 </div>
 
                 <p className="text-lg text-slate-900 leading-relaxed mb-8 whitespace-pre-line">
@@ -185,8 +180,8 @@ export default function StudyCard({
                 </div>
 
                 {showReviewScreen ? (
-                  <div className="bg-indigo-50 border border-indigo-200 rounded-xl p-4">
-                    <div className="text-indigo-700 font-medium">
+                  <div className="bg-white border-2 border-indigo-400 rounded-xl p-4">
+                    <div className="text-indigo-700 font-semibold">
                       {previousResponse === "knew_it" && "✓ I knew it"}
                       {previousResponse === "almost" && "~ Almost"}
                       {previousResponse === "review" && "✗ I need to review"}
@@ -197,7 +192,7 @@ export default function StudyCard({
                     {!showReviewScreen && (
                       <button
                         onClick={() => handleResponse("knew_it")}
-                        className="border border-emerald-300 bg-emerald-50 px-5 py-3 rounded-xl text-left"
+                        className="border-2 border-emerald-500 bg-emerald-100 px-5 py-3 rounded-xl text-left font-semibold"
                       >
                         ✓ I knew it
                       </button>
@@ -206,7 +201,7 @@ export default function StudyCard({
                     {!showReviewScreen && (
                       <button
                         onClick={() => handleResponse("almost")}
-                        className="border border-amber-300 bg-amber-50 px-5 py-3 rounded-xl text-left"
+                        className="border-2 border-amber-500 bg-amber-100 px-5 py-3 rounded-xl text-left font-semibold"
                       >
                         ~ Almost
                       </button>
@@ -215,7 +210,7 @@ export default function StudyCard({
                     {!showReviewScreen && (
                       <button
                         onClick={() => handleResponse("review")}
-                        className="border border-rose-300 bg-rose-50 px-5 py-3 rounded-xl text-left"
+                        className="border-2 border-rose-500 bg-rose-100 px-5 py-3 rounded-xl text-left font-semibold"
                       >
                         {isStudyMode ? "✗ I need to review" : "✗ I didn't know"}
                       </button>

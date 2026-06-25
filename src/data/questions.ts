@@ -2603,7 +2603,6 @@ export const questions: Question[] = [
       },
     ],
   },
- 
 
   {
     id: "MP-LNG-006",
@@ -3325,8 +3324,11 @@ export const questions: Question[] = [
     topic: "Anchoring",
     type: "Process",
     question: "Describe the Circle of Excellence process.",
-    answer:
-      "1. Identify desired state. 2. Create circle on floor in front. 3. Fill circle with desired state, step in and anchor. Step out, BS, and test by stepping back in.  4. Stack additional states as required. 5. Test and 'take circle' with you.",
+    answer: `1. Identify desired state. 
+      2. Create circle on floor in front. 
+      3. Fill circle with desired state, step in and anchor. Step out, BS, and test by stepping back in.  
+      4. Stack additional states as required. 
+      5. Test and 'take circle' with you.`,
     distractors: [
       "A process for timeline change work.",
       "A method for eliciting values.",

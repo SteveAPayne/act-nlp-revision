@@ -47,56 +47,105 @@ function App() {
   const [quizReviewTopics, setQuizReviewTopics] = useState<string[]>([]);
   if (!userName) {
     return (
-      <div className="max-w-4xl mx-auto mt-10 p-8">
-        <h1 className="text-3xl font-bold mb-6">What shall I call you?</h1>
+      <div className="min-h-screen bg-gradient-to-br from-slate-900 via-blue-950 to-indigo-950">
+        <div className="max-w-4xl mx-auto p-8 text-center">
+          <div className="relative mb-6">
+            <div className="absolute inset-0 flex justify-center">
+              <div className="w-56 h-56 bg-indigo-500/40 blur-3xl rounded-full"></div>
+            </div>
 
-        <input
-          type="text"
-          value={nameInput}
-          onChange={(e) => setNameInput(e.target.value)}
-          placeholder="Enter your name"
-          className="border border-slate-300 rounded-xl px-4 py-3 w-full mb-4"
-        />
+            <img
+              src={actLogo}
+              alt="ACT Logo"
+              className="w-36 mx-auto relative z-10"
+            />
+          </div>
 
-        <button
-          onClick={() => {
-            localStorage.setItem("userName", nameInput);
-            setUserName(nameInput);
-            setShowWelcome(true);
-          }}
-          className="bg-indigo-600 text-white px-6 py-3 rounded-xl"
-        >
-          Continue
-        </button>
+          <h1 className="text-4xl font-bold text-white mb-3">
+            ACT NLP Revision
+          </h1>
+
+          <p className="text-slate-300 text-xl mb-2">Learn. Test. Pass.</p>
+
+          <div className="w-24 h-[2px] bg-indigo-400 mx-auto my-4"></div>
+
+          <p className="text-slate-300 mb-6">
+            Practitioner • Master Practitioner • Trainer
+          </p>
+
+          <div className="max-w-md mx-auto bg-white/15 backdrop-blur-xl rounded-3xl p-6 border border-white/30 shadow-2xl">
+            <p className="text-slate-300 mb-4">Enter your name to begin</p>
+
+            <input
+              type="text"
+              value={nameInput}
+              onChange={(e) => setNameInput(e.target.value)}
+              placeholder="Enter your name"
+              className="border border-slate-300 rounded-xl px-4 py-4 w-full mb-4"
+            />
+
+            <button
+              onClick={() => {
+                localStorage.setItem("userName", nameInput);
+                setUserName(nameInput);
+                setShowWelcome(true);
+              }}
+              className="w-full bg-gradient-to-r from-indigo-500 via-violet-500 to-purple-500 shadow-lg shadow-violet-500/30 text-white py-4 rounded-xl font-semibold text-lg hover:bg-indigo-700"
+            >
+              Start Learning →
+            </button>
+          </div>
+        </div>
       </div>
     );
   }
 
   if (showWelcome) {
     return (
-      <div
-        className="max-w-4xl mx-auto mt-10 p-4 min-h-screen flex items-center justify-center"
-        style={{
-          backgroundColor: "#6B7280",
-        }}
-      >
+      <div className="min-h-screen bg-gradient-to-br from-slate-900 via-blue-950 to-indigo-950 flex items-center justify-center p-6">
         <div
-          className={`rounded-3xl p-12 shadow-lg text-center transition-opacity duration-500 ${
-            isFading ? "opacity-0" : "opacity-100"
+          className={`text-center transition-all duration-700 ${
+            isFading ? "opacity-0 scale-95" : "opacity-100 scale-100"
           }`}
-          style={{
-            backgroundColor: "#F3F0FF",
-          }}
         >
-          <img src={actLogo} alt="ACT Logo" className="w-40 mx-auto mb-8" />
-          <h1 className="text-2xl font-bold mb-3" style={{ color: "#1F4E79" }}>
-            Welcome {userName}
-          </h1>
+          <div className="relative mb-8">
+            <div className="absolute inset-0 flex justify-center">
+              <div className="w-56 h-56 bg-indigo-500/40 blur-3xl rounded-full"></div>
+            </div>
 
-          <div className="text-slate-500 text-xl">Let's learn together.</div>
+            <img
+              src={actLogo}
+              alt="ACT Logo"
+              className="w-32 mx-auto relative z-10"
+            />
+          </div>
 
-          <div className="text-slate-500 text-base mt-8">
-            Preparing your NLP learning experience...
+          <div className="bg-white/15 backdrop-blur-xl border border-white/30 rounded-3xl p-10 shadow-2xl max-w-lg mx-auto">
+            <h1 className="text-4xl font-bold text-white mb-3">
+              Welcome, {userName}
+            </h1>
+
+            <p className="text-slate-300 text-xl mb-4">
+              Ready to strengthen your NLP mastery?
+            </p>
+
+            <div className="w-24 h-[2px] bg-indigo-400 mx-auto my-6"></div>
+
+            <p className="text-slate-300 mb-6">
+              Practitioner • Master Practitioner • Trainer
+            </p>
+
+            <div className="text-indigo-200 text-lg font-medium">
+              <div className="flex justify-center items-center gap-2 mt-6">
+                <div className="w-2 h-2 bg-indigo-300 rounded-full animate-bounce"></div>
+                <div className="w-2 h-2 bg-indigo-300 rounded-full animate-bounce [animation-delay:150ms]"></div>
+                <div className="w-2 h-2 bg-indigo-300 rounded-full animate-bounce [animation-delay:300ms]"></div>
+              </div>
+
+              <p className="text-indigo-200 text-sm mt-4">
+                Preparing your learning experience...
+              </p>
+            </div>
           </div>
         </div>
       </div>
@@ -104,39 +153,33 @@ function App() {
   }
 
   if (!selectedMode) {
-    return (
-      <div className="max-w-4xl mx-auto mt-10 p-4">
-        <ModeSelector onSelectMode={setSelectedMode} />
-      </div>
-    );
+    return <ModeSelector onSelectMode={setSelectedMode} />;
   }
 
   if (!selectedLevel) {
     return (
-      <div className="max-w-4xl mx-auto mt-10 p-4">
-        <button
-          onClick={() => setSelectedMode("")}
-          className="mb-4 text-white font-medium"
-        >
-          ← Back
-        </button>
-
-        <LevelSelector onSelectLevel={setSelectedLevel} />
-      </div>
+      <LevelSelector
+        onSelectLevel={setSelectedLevel}
+        onBack={() => setSelectedMode("")}
+      />
     );
   }
 
   if (!selectedCategory) {
     return (
-      <div className="max-w-4xl mx-auto mt-10 p-4">
-        <button
-          onClick={() => setSelectedLevel("")}
-          className="mb-4 text-white font-medium"
-        >
-          ← Back
-        </button>
+      <div className="min-h-screen bg-gradient-to-br from-slate-900 via-blue-950 to-indigo-950">
+        <div className="absolute top-16 left-4 z-50">
+          <button
+            onClick={() => setSelectedLevel("")}
+            className="text-white font-medium"
+          >
+            ← Back
+          </button>
+        </div>
 
-        <CategorySelector onSelectCategory={setSelectedCategory} />
+        <div className="pt-8">
+          <CategorySelector onSelectCategory={setSelectedCategory} />
+        </div>
       </div>
     );
   }
@@ -225,27 +268,14 @@ function App() {
     );
   }
 
-  if (!selectedLevel) {
-    return (
-      <div className="max-w-4xl mx-auto mt-10 p-4">
-        <button
-          onClick={() => setSelectedMode("")}
-          className="mb-4 text-white text-xl font-medium"
-        >
-          ← Back
-        </button>
 
-        <LevelSelector onSelectLevel={setSelectedLevel} />
-      </div>
-    );
-  }
 
   if (!selectedCategory) {
     return (
       <div className="max-w-4xl mx-auto mt-10 p-4">
         <button
           onClick={() => setSelectedLevel("")}
-          className="mb-4 text-white text-xl font-bold"
+          className="mt-8 ml-4 mb-10 text-white text-base font-semibold"
         >
           ← Back
         </button>
@@ -418,13 +448,8 @@ function App() {
     }
 
     return (
-      <div className="max-w-4xl mx-auto mt-10 p-4">
-        <div
-          className="rounded-3xl p-8 min-h-[520px] shadow-lg"
-          style={{
-            backgroundColor: "#F3F0FF",
-          }}
-        >
+      <div className="min-h-screen bg-gradient-to-br from-slate-900 via-blue-950 to-indigo-950 p-4">
+        <div className="max-w-3xl mx-auto rounded-3xl p-8 min-h-[520px] shadow-2xl bg-[#F4F1EA] border border-slate-200">
           <h1 className="text-3xl font-bold mb-6">
             {selectedCategory} Complete
           </h1>
@@ -521,12 +546,7 @@ function App() {
   }
 
   return (
-    <div
-      className="max-w-4xl mx-auto mt-10 p-4 min-h-screen"
-      style={{
-        backgroundColor: "#6B7280",
-      }}
-    >
+    <div className="min-h-screen bg-gradient-to-br from-slate-900 via-blue-950 to-indigo-950 p-4">
       <button
         onClick={() => {
           localStorage.removeItem("masteryRecords");
@@ -536,7 +556,7 @@ function App() {
           setSelectedLevel("");
           setSelectedMode("");
         }}
-        className="mb-4 bg-red-600 text-white px-4 py-2 rounded-lg font-semibold"
+        className="mb-4 bg-white/15 backdrop-blur-xl border border-white/30 text-white px-4 py-2 rounded-xl font-medium hover:bg-white/20 transition-all"
       >
         ↺ Reset Study
       </button>

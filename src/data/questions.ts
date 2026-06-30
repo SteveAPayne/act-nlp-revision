@@ -1426,7 +1426,7 @@ export const questions: Question[] = [
     question: "List 3 of the Presuppositions of NLP ",
     answer: `1. Map is not the territory 
       2. Respect for other people's maps 
-      3. The mind and the body is a linked system 
+      3. Behaviour and change is to be evaluated in terms of context and ecology
       4. No failure, only feedback 
       5. The mind and body is a linked system 
       6. There are no resistant clients, only inflexible communicators. Resistance is a sign of a lack of rapport 
@@ -1435,7 +1435,7 @@ export const questions: Question[] = [
       9. Be flexible - The person with the greatest flexibility of will, will control the system
       10. More choice is better than less
       11. People are geared for change
-      12. The meaning of communication is the rsponse it elicits
+      12. The meaning of communication is the response it elicits
       13. Every behaviour has a positive intention
       14. We are not our behaviours`,
     distractors: [
@@ -3806,7 +3806,7 @@ export const questions: Question[] = [
     id: "P-FND-012",
     level: "Practitioner",
     category: "Foundations",
-    topic: "NLP Presuppositions",
+    topic: "NLP Linguistic Presuppositions",
     type: "Recall",
     question: "List the NLP Linguistic Presuppositions.",
     answer: `1. Time

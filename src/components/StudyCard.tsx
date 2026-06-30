@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { Question } from "../data/questions";
 import { responsePoints, ResponseType } from "../lib/mastery";
+import { feedback } from "../utils/appFeedback";
 
 interface StudyCardProps {
   mode: "study" | "quiz" | "mock";
@@ -13,6 +14,8 @@ interface StudyCardProps {
   onPrevious: () => void;
   onReviewNext: () => void;
   canGoForward?: boolean;
+  soundEnabled: boolean;
+  hapticsEnabled: boolean;
 }
 
 export default function StudyCard({
@@ -25,6 +28,8 @@ export default function StudyCard({
   onNext,
   onPrevious,
   onReviewNext,
+  soundEnabled,
+  hapticsEnabled,
 }: StudyCardProps) {
   const [showAnswer, setShowAnswer] = useState(false);
   const [showExplanation, setShowExplanation] = useState(false);
@@ -53,6 +58,7 @@ export default function StudyCard({
     existing.push(record);
 
     localStorage.setItem("masteryRecords", JSON.stringify(existing));
+    feedback(soundEnabled, hapticsEnabled);
 
     onNext();
   };

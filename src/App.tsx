@@ -6,6 +6,7 @@ import StudyCard from "./components/StudyCard";
 import { questions } from "./data/questions";
 import QuizCard from "./components/QuizCard";
 import actLogo from "./assets/act-logo.png";
+import SettingsModal from "./components/SettingsModal";
 
 function App() {
   const [selectedMode, setSelectedMode] = useState("");
@@ -25,6 +26,23 @@ function App() {
   );
 
   const [isFading, setIsFading] = useState(false);
+  const [soundEnabled, setSoundEnabled] = useState(
+    localStorage.getItem("soundEnabled") !== "false",
+  );
+
+  const [hapticsEnabled, setHapticsEnabled] = useState(
+    localStorage.getItem("hapticsEnabled") !== "false",
+  );
+
+  const [showSettings, setShowSettings] = useState(false);
+
+  useEffect(() => {
+    localStorage.setItem("soundEnabled", String(soundEnabled));
+  }, [soundEnabled]);
+
+  useEffect(() => {
+    localStorage.setItem("hapticsEnabled", String(hapticsEnabled));
+  }, [hapticsEnabled]);
 
   useEffect(() => {
     if (showWelcome) {
@@ -62,7 +80,7 @@ function App() {
           </div>
 
           <h1 className="text-4xl font-bold text-white mb-3">
-            ACT NLP Revision
+            ACT NLP MASTERY
           </h1>
 
           <p className="text-slate-300 text-xl mb-2">Learn. Test. Pass.</p>
@@ -153,7 +171,26 @@ function App() {
   }
 
   if (!selectedMode) {
-    return <ModeSelector onSelectMode={setSelectedMode} />;
+    return (
+      <>
+        <ModeSelector
+          onSelectMode={setSelectedMode}
+          onOpenSettings={() => setShowSettings(true)}
+          soundEnabled={soundEnabled}
+          hapticsEnabled={hapticsEnabled}
+        />
+
+        {showSettings && (
+          <SettingsModal
+            soundEnabled={soundEnabled}
+            setSoundEnabled={setSoundEnabled}
+            hapticsEnabled={hapticsEnabled}
+            setHapticsEnabled={setHapticsEnabled}
+            onClose={() => setShowSettings(false)}
+          />
+        )}
+      </>
+    );
   }
 
   if (!selectedLevel) {
@@ -161,6 +198,8 @@ function App() {
       <LevelSelector
         onSelectLevel={setSelectedLevel}
         onBack={() => setSelectedMode("")}
+        soundEnabled={soundEnabled}
+        hapticsEnabled={hapticsEnabled}
       />
     );
   }
@@ -178,7 +217,11 @@ function App() {
         </div>
 
         <div className="pt-8">
-          <CategorySelector onSelectCategory={setSelectedCategory} />
+          <CategorySelector
+            onSelectCategory={setSelectedCategory}
+            soundEnabled={soundEnabled}
+            hapticsEnabled={hapticsEnabled}
+          />
         </div>
       </div>
     );
@@ -206,9 +249,20 @@ function App() {
   );
   console.log("REVIEW CARD IDS", reviewCardIds);
 
+  const allowedLevels =
+    selectedLevel === "Practitioner"
+      ? ["Practitioner"]
+      : selectedLevel === "Master Practitioner"
+        ? ["Practitioner", "Master Practitioner"]
+        : ["Practitioner", "Master Practitioner", "Trainer"];
+
   const matchingQuestions = questions.filter(
-    (q) => q.level === selectedLevel && q.category === selectedCategory,
+    (q) => allowedLevels.includes(q.level) && q.category === selectedCategory,
   );
+
+  console.log("Selected Level:", selectedLevel);
+  console.log("Allowed Levels:", allowedLevels);
+  console.log("Matching Questions:", matchingQuestions);
 
   const matchingQuestion = matchingQuestions[currentQuestionIndex];
   const existingStudyResponse = masteryRecords.find(
@@ -268,8 +322,6 @@ function App() {
     );
   }
 
-
-
   if (!selectedCategory) {
     return (
       <div className="max-w-4xl mx-auto mt-10 p-4">
@@ -280,7 +332,11 @@ function App() {
           ← Back
         </button>
 
-        <CategorySelector onSelectCategory={setSelectedCategory} />
+        <CategorySelector
+          onSelectCategory={setSelectedCategory}
+          soundEnabled={soundEnabled}
+          hapticsEnabled={hapticsEnabled}
+        />
       </div>
     );
   }
@@ -566,6 +622,8 @@ function App() {
           question={matchingQuestion}
           currentCard={currentQuestionIndex + 1}
           totalCards={matchingQuestions.length}
+          soundEnabled={soundEnabled}
+          hapticsEnabled={hapticsEnabled}
           onCorrect={() => setQuizCorrect((prev) => prev + 1)}
           onIncorrect={() =>
             setQuizReviewTopics((prev) =>
@@ -589,6 +647,8 @@ function App() {
           currentCard={currentQuestionIndex + 1}
           totalCards={matchingQuestions.length}
           existingStudyResponse={existingStudyResponse}
+          soundEnabled={soundEnabled}
+          hapticsEnabled={hapticsEnabled}
           isReviewing={currentQuestionIndex < highestQuestionReached}
           canGoForward={currentQuestionIndex < highestQuestionReached}
           onNext={() => {

@@ -1,5 +1,6 @@
 import { useEffect, useState, useMemo } from "react";
 import { Question } from "../data/questions";
+import { feedback } from "../utils/appFeedback";
 
 interface QuizCardProps {
   question: Question;
@@ -8,16 +9,11 @@ interface QuizCardProps {
   onNext: () => void;
   onCorrect: () => void;
   onIncorrect: () => void;
+  soundEnabled: boolean;
+  hapticsEnabled: boolean;
 }
 
-export default function QuizCard({
-  question,
-  currentCard,
-  totalCards,
-  onNext,
-  onCorrect,
-  onIncorrect,
-}: QuizCardProps) {
+export default function QuizCard({ question, currentCard, totalCards, onNext, onCorrect, onIncorrect, soundEnabled, hapticsEnabled, }: QuizCardProps) {
   const [selectedAnswer, setSelectedAnswer] = useState<string | null>(null);
   const [answered, setAnswered] = useState(false);
 
@@ -62,6 +58,8 @@ export default function QuizCard({
                   onClick={() => {
                     setSelectedAnswer(option);
                     setAnswered(true);
+
+                    feedback(soundEnabled, hapticsEnabled);
 
                     if (option === question.answer) {
                       onCorrect();

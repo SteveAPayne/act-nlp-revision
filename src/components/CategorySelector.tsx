@@ -1,9 +1,14 @@
+import { feedback } from "../utils/appFeedback";
 interface CategorySelectorProps {
   onSelectCategory: (category: string) => void;
+  soundEnabled: boolean;
+  hapticsEnabled: boolean;
 }
 
 export default function CategorySelector({
   onSelectCategory,
+  soundEnabled,
+  hapticsEnabled,
 }: CategorySelectorProps) {
   const categories = [
     "Foundations",
@@ -33,6 +38,7 @@ export default function CategorySelector({
           <button
             key={category}
             onClick={() => {
+              feedback(soundEnabled, hapticsEnabled);
               console.log("CATEGORY CLICKED:", category);
               onSelectCategory(category);
             }}
